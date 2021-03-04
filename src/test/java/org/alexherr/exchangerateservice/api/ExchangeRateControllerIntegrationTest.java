@@ -27,7 +27,7 @@ class ExchangeRateControllerIntegrationTest {
     void getSingleRate() throws Exception {
         mvc.perform(get("/latest?symbols=USD,EUR")
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isAccepted())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.currencyShortName").value("USD"))
                 .andExpect(jsonPath("$.base").value("EUR"));
     }
@@ -36,7 +36,7 @@ class ExchangeRateControllerIntegrationTest {
     void getConvertedAmount() throws Exception {
         mvc.perform(get("/convert?symbols=50,USD,EUR")
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isAccepted())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.currencyShortName").value("USD"))
                 .andExpect(jsonPath("$.result").isNumber())
                 .andExpect(jsonPath("$.base").value("EUR"));
@@ -46,7 +46,7 @@ class ExchangeRateControllerIntegrationTest {
     void getChart() throws Exception {
         mvc.perform(get("/chart?symbols=USD,EUR")
                 .accept(MediaType.TEXT_HTML))
-                .andExpect(status().isAccepted())
+                .andExpect(status().isOk())
                 .andExpect(content().string("<HTML><body> <a href=\"https://www.tradingview.com/symbols/USDEUR\">Outbound link to chart from tradingview.com</a></body></HTML>"));
     }
 }

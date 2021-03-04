@@ -24,7 +24,7 @@ public class ExchangerateserviceApplication {
 	}
 
 	@EventListener(ApplicationReadyEvent.class)
-	@Scheduled(cron = "0 01 16 * * MON-FRI")
+	@Scheduled(cron = "0 01 16 * * MON-FRI", zone = "CET")
 	public void getDataFromXML() throws ParserConfigurationException, SAXException, IOException {
 		exchangeRateList = XMLService.getExchangeRateList();
 	}

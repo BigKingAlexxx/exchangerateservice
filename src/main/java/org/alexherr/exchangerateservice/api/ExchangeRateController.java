@@ -27,7 +27,7 @@ public class ExchangeRateController {
 
         try {
             float rate = CurrencyConverter.getExchangeRate(currencyFrom, currencyTo, ExchangerateserviceApplication.exchangeRateList);
-            return ResponseEntity.status(HttpStatus.ACCEPTED)
+            return ResponseEntity.status(HttpStatus.OK)
                     .body(new SingleRate(ExchangerateserviceApplication.exchangeRateList.getDate(),
                             currencyFrom,
                             rate,
@@ -49,7 +49,7 @@ public class ExchangeRateController {
             String currencyTo = symbolsArray[2];
 
             float result = CurrencyConverter.getCurrencyAmount(amount, currencyFrom, currencyTo, ExchangerateserviceApplication.exchangeRateList);
-            return ResponseEntity.status(HttpStatus.ACCEPTED)
+            return ResponseEntity.status(HttpStatus.OK)
                     .body(new ConvertedCurrency(ExchangerateserviceApplication.exchangeRateList.getDate(),
                             currencyFrom, result, currencyTo));
         }
@@ -67,7 +67,7 @@ public class ExchangeRateController {
             String currencyFrom = symbolsArray[0];
             String currencyTo = symbolsArray[1];
 
-            return ResponseEntity.status(HttpStatus.ACCEPTED)
+            return ResponseEntity.status(HttpStatus.OK)
                     .body("<HTML><body> <a href=\"https://www.tradingview.com/symbols/" + currencyFrom
                             + currencyTo + "\">Outbound link to chart from tradingview.com</a></body></HTML>");
         }
