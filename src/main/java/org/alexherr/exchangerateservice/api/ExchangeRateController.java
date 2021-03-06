@@ -11,8 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+
 @RestController
 public class ExchangeRateController {
+
+    @GetMapping("/")
+    public HashMap<String, String> getHome() {
+        HashMap<String, String> homeMap = new HashMap<>();
+        homeMap.put("details", "https://exchangerateservice.ovh");
+        return homeMap;
+    }
 
     @GetMapping("/latest")
     public ExchangeRateList getExchangeRateList() {
