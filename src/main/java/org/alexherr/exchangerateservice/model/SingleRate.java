@@ -1,15 +1,16 @@
 package org.alexherr.exchangerateservice.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class SingleRate {
 
     private LocalDate date;
     private String currencyShortName;
-    private float rate;
+    private BigDecimal rate;
     private String base;
 
-    public SingleRate(LocalDate date, String currencyShortName, float rate, String base) {
+    public SingleRate(LocalDate date, String currencyShortName, BigDecimal rate, String base) {
         this.date = date;
         this.currencyShortName = currencyShortName;
         this.rate = rate;
@@ -24,7 +25,7 @@ public class SingleRate {
         return currencyShortName;
     }
 
-    public float getRate() {
+    public BigDecimal getRate() {
         return rate;
     }
 

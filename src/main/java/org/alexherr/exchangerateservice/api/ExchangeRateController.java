@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 @RestController
@@ -35,7 +36,7 @@ public class ExchangeRateController {
         String currencyTo = currencies[1];
 
         try {
-            float rate = CurrencyConverter.getExchangeRate(currencyFrom, currencyTo, ExchangerateserviceApplication.exchangeRateList);
+            BigDecimal rate = CurrencyConverter.getExchangeRate(currencyFrom, currencyTo, ExchangerateserviceApplication.exchangeRateList);
             return ResponseEntity.status(HttpStatus.OK)
                     .body(new SingleRate(ExchangerateserviceApplication.exchangeRateList.getDate(),
                             currencyFrom,
@@ -57,7 +58,7 @@ public class ExchangeRateController {
             String currencyFrom = symbolsArray[1];
             String currencyTo = symbolsArray[2];
 
-            float result = CurrencyConverter.getCurrencyAmount(amount, currencyFrom, currencyTo, ExchangerateserviceApplication.exchangeRateList);
+            BigDecimal result = CurrencyConverter.getCurrencyAmount(amount, currencyFrom, currencyTo, ExchangerateserviceApplication.exchangeRateList);
             return ResponseEntity.status(HttpStatus.OK)
                     .body(new ConvertedCurrency(ExchangerateserviceApplication.exchangeRateList.getDate(),
                             currencyFrom, result, currencyTo));

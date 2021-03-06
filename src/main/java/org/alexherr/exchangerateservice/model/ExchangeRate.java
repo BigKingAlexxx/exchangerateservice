@@ -6,12 +6,10 @@ public class ExchangeRate {
 
     private String currencyShortName;
     private float rate;
-    private int requests;
 
     public ExchangeRate(String currencyShortName, float rate, int requests) {
         this.currencyShortName = currencyShortName;
         this.rate = rate;
-        this.requests = requests;
     }
 
     @JsonIgnore
@@ -21,12 +19,5 @@ public class ExchangeRate {
 
     public float getRate() {
         return rate;
-    }
-
-    public int getRequests() {
-        return requests;
-    }
-    public void addOneRequest() {
-        this.requests += 1;
     }
 }

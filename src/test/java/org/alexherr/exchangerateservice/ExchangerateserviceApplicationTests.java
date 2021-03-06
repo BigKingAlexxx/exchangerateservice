@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -31,24 +33,24 @@ class ExchangerateserviceApplicationTests {
 
 	@Test
 	void getCurrencyAmount() {
-		HashMap<String, ExchangeRate> exchangeRateHashMap = new HashMap<>();
-		exchangeRateHashMap.put("USD", new ExchangeRate("USD", 1.2f, 0));
-		exchangeRateHashMap.put("EUR", new ExchangeRate("EUR", 1f, 0));
-		ExchangeRateList exchangeRateList = new ExchangeRateList("2020-01-01", "EUR", exchangeRateHashMap);
+		TreeMap<String, Float> exchangeRateTreeMap = new TreeMap<>();
+		exchangeRateTreeMap.put("USD", 1.2f);
+		exchangeRateTreeMap.put("EUR", 1f);
+		ExchangeRateList exchangeRateList = new ExchangeRateList("2020-01-01", "EUR", exchangeRateTreeMap);
 		float amount = 5;
-		float expected = amount / 1.2f;
-		float actual = CurrencyConverter.getCurrencyAmount(amount, "USD", "EUR", exchangeRateList);
+		BigDecimal expected = BigDecimal.valueOf(amount).divide(new BigDecimal("1.2f"));
+		BigDecimal actual = CurrencyConverter.getCurrencyAmount(amount, "USD", "EUR", exchangeRateList);
 		assertThat(expected).isEqualTo(actual);
 	}
 
 	@Test
 	void getExchangeRate() {
-		HashMap<String, ExchangeRate> exchangeRateHashMap = new HashMap<>();
-		exchangeRateHashMap.put("USD", new ExchangeRate("USD", 1.2f, 0));
-		exchangeRateHashMap.put("EUR", new ExchangeRate("EUR", 1f, 0));
-		ExchangeRateList exchangeRateList = new ExchangeRateList("2020-01-01", "EUR", exchangeRateHashMap);
-		float expected = 1.2f;
-		float actual = CurrencyConverter.getExchangeRate("USD", "EUR", exchangeRateList);
+		TreeMap<String, Float> exchangeRateTreeMap = new TreeMap<>();
+		exchangeRateTreeMap.put("USD", 1.2f);
+		exchangeRateTreeMap.put("EUR", 1f);
+		ExchangeRateList exchangeRateList = new ExchangeRateList("2020-01-01", "EUR", exchangeRateTreeMap);
+		BigDecimal expected = new BigDecimal("1.2f");
+		BigDecimal actual = CurrencyConverter.getExchangeRate("USD", "EUR", exchangeRateList);
 		assertThat(expected).isEqualTo(actual);
 	}
 

@@ -13,6 +13,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class XMLService {
     private static final String URL_XML = "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml";
@@ -30,7 +31,7 @@ public class XMLService {
     }
 
     private static ExchangeRateList parseExchangeRates(NodeList nodeList) {
-        HashMap<String, ExchangeRate> rates = new HashMap<>();
+        TreeMap<String, Float> rates = new TreeMap<>();
         String date = null;
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
@@ -39,13 +40,11 @@ public class XMLService {
                 date = element.getAttribute("time");
             }
             if (element.hasAttribute("currency")){
-                rates.put(element.getAttribute("currency"),
-                        new ExchangeRate(element.getAttribute("currency"),
-                                Float.parseFloat(element.getAttribute("rate")), 0));
+                rates.put(element.getAttribute("currency"), Float.parseFloat(element.getAttribute("rate")));
 
             }
         }
-        rates.put("EUR", new ExchangeRate("EUR", 1, 0));
+        rates.put("EUR", 1f);
         return new ExchangeRateList(date, "EUR", rates);
     }
 }
